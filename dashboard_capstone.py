@@ -15,7 +15,7 @@ sns.set_theme(style="whitegrid")
 @st.cache_data
 def load_dashboard_data():
     try:
-        df_main = pd.read_csv('df_final.csv')
+        df_main = pd.read_csv('df_boxplot.csv') # Menggunakan df_boxplot.csv sesuai perbaikan sebelumnya
         q1 = pd.read_csv('streamlit_data/q1_kategori_counts.csv')
         q2 = pd.read_csv('streamlit_data/q2_top_10_jobs.csv')
         q3 = pd.read_csv('streamlit_data/q3_top_skills_matrix.csv')
@@ -64,7 +64,10 @@ else:
     if selected_q.startswith("Pertanyaan 1"):
         st.markdown("### 📊 Visualisasi Grafik")
         fig1, ax1 = plt.subplots(figsize=(10, 4))
-        sns.barplot(x='Kategori Industri', y='Jumlah Lowongan', data=q1_data, ax=ax1)
+        
+        # PERBAIKAN: Menambahkan hue dan legend=False
+        sns.barplot(x='Kategori Industri', y='Jumlah Lowongan', data=q1_data, hue='Kategori Industri', palette='muted', legend=False, ax=ax1)
+        
         plt.title('Proporsi Volume Data per Sektor Kategori', fontsize=11, weight='bold')
         
         # Total Data untuk menghitung persentase
@@ -92,7 +95,10 @@ else:
         
         st.markdown("### 📊 Visualisasi Grafik")
         fig2, ax2 = plt.subplots(figsize=(11, 5))
-        sns.barplot(x='Jumlah Lowongan', y='Posisi Pekerjaan (Job Title)', data=filtered_q2, ax=ax2)
+        
+        # PERBAIKAN: Menambahkan hue dan legend=False
+        sns.barplot(x='Jumlah Lowongan', y='Posisi Pekerjaan (Job Title)', data=filtered_q2, hue='Posisi Pekerjaan (Job Title)', palette='muted', legend=False, ax=ax2)
+        
         plt.title(f'Peringkat {top_n} Besar Jabatan Lowongan Kerja Terpopuler', fontsize=11, weight='bold')
         st.pyplot(fig2)
         
@@ -124,7 +130,10 @@ else:
     elif selected_q.startswith("Pertanyaan 4"):
         st.markdown("### 📊 Visualisasi Grafik")
         fig4, ax4 = plt.subplots(figsize=(10, 4))
-        sns.barplot(x='Kategori Non-IT', y='Persentase dari Total Kategori (%)', data=q4_data, ax=ax4)
+        
+        # PERBAIKAN: Menambahkan hue dan legend=False
+        sns.barplot(x='Kategori Non-IT', y='Persentase dari Total Kategori (%)', data=q4_data, hue='Kategori Non-IT', palette='muted', legend=False, ax=ax4)
+        
         plt.title('Proporsi Lowongan Kerja Non-IT yang Menuntut Kompetensi Digital', fontsize=11, weight='bold')
         for p in ax4.patches:
             ax4.annotate(f"{p.get_height():.2f}%", (p.get_x() + p.get_width() / 2., p.get_height() / 2),
@@ -141,7 +150,7 @@ else:
         st.markdown("### 📊 Visualisasi Grafik (Box Plot)")
         
         if df_main is None:
-            st.error("⚠️ Dataset utama (df_final.csv) tidak ditemukan. Box plot membutuhkan data mentah untuk menghitung pencilan (outliers).")
+            st.error("⚠️ Dataset utama (df_final.csv / df_boxplot.csv) tidak ditemukan. Box plot membutuhkan data mentah untuk menghitung pencilan (outliers).")
         else:
             fig_box, ax_box = plt.subplots(figsize=(12, 6))
             
