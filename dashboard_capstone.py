@@ -15,7 +15,7 @@ sns.set_theme(style="whitegrid")
 @st.cache_data
 def load_dashboard_data():
     try:
-        df_main = pd.read_csv('df_boxplot.csv') # Menggunakan df_boxplot.csv sesuai perbaikan sebelumnya
+        df_main = pd.read_csv('df_final.csv')
         q1 = pd.read_csv('streamlit_data/q1_kategori_counts.csv')
         q2 = pd.read_csv('streamlit_data/q2_top_10_jobs.csv')
         q3 = pd.read_csv('streamlit_data/q3_top_skills_matrix.csv')
@@ -150,7 +150,7 @@ else:
         st.markdown("### 📊 Visualisasi Grafik (Box Plot)")
         
         if df_main is None:
-            st.error("⚠️ Dataset utama (df_final.csv / df_boxplot.csv) tidak ditemukan. Box plot membutuhkan data mentah untuk menghitung pencilan (outliers).")
+            st.error("⚠️ Dataset utama tidak ditemukan.")
         else:
             fig_box, ax_box = plt.subplots(figsize=(12, 6))
             
