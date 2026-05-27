@@ -99,7 +99,7 @@ else:
         st.pyplot(fig2)
         
         st.markdown("### 💡 Insight & Kesimpulan")
-        st.info("**Insight Visualisasi:**\n\nVisualisasi grafik batang horizontal memperlihatkan secara jelas dominasi pasar tenaga kerja oleh rumpun komersial dan lini depan. Posisi 'sales executive' mendominasi grafik dengan volume rekrutmen tertinggi (775 lowongan).")
+        st.info("**Insight Visualisasi:**\n\nVisualisasi grafik batang horizontal memperlihatkan secara jelas dominasi pasar tenaga kerja oleh rumpun komersial dan lini depan. Posisi 'Sales Executive' mendominasi grafik dengan volume rekrutmen tertinggi (775 lowongan).")
         st.success("**Conclusion:**\n\nTingginya volume rekrutmen pada posisi lini depan komersial (dipimpin oleh Sales Executive dengan 775 lowongan) dan layanan kesehatan merepresentasikan fokus serapan pasar tenaga kerja saat ini. Pengembangan UI/UX pada dashboard aplikasi perlu memprioritaskan penyajian 'High Demand Jobs' pada halaman utama untuk mengarahkan pengguna ke sektor dengan probabilitas rekrutmen tertinggi.")
 
     # PERTANYAAN 3 (Heatmap & Anotasi Bobot Keterampilan)
@@ -134,7 +134,7 @@ else:
         st.pyplot(fig4)
         
         st.markdown("### 💡 Insight & Kesimpulan")
-        st.info("**Insight Visualisasi:**\n\nGrafik proporsi pekerjaan secara gamblang memvalidasi masifnya penetrasi kompetensi digital di sektor non-IT. Terlihat jelas bahwa baris Engineering (67.10%) and Business & Admin (65.97%) mendominasi kebutuhan literasi teknologi, membuktikan bahwa algoritma AI kelak sangat relevan untuk menyokong rekomendasi peran hybrid kepada pelamar non-teknis.")
+        st.info("**Insight Visualisasi:**\n\nGrafik proporsi pekerjaan secara gamblang memvalidasi masifnya penetrasi kompetensi digital di sektor non-IT. Terlihat jelas bahwa baris Engineering (67.25%) dan Business & Admin (66.06%) mendominasi kebutuhan literasi teknologi, membuktikan bahwa algoritma AI kelak sangat relevan untuk menyokong rekomendasi peran hybrid kepada pelamar non-teknis.")
         st.success("**Conclusion:**\n\nDominasi kebutuhan literasi digital pada sektor non-IT memvalidasi tren ekspansi pekerjaan hybrid. Algoritma rekomendasi harus dikonfigurasi agar secara proaktif memfasilitasi Career Pivot, mengarahkan kandidat berlatar belakang non-teknis yang memiliki kompetensi digital menuju peluang lintas industri tersebut.")
 
     # HALAMAN PERTANYAAN 5 (Kombinasi Box Plot, Bar Chart Interaktif, dan Tabel Angka Deskriptif)
@@ -171,5 +171,5 @@ else:
         st.dataframe(q5_data.set_index('Kategori Industri'), use_container_width=True)
         
         st.markdown("### 💡 Insight & Kesimpulan")
-        st.info("**Insight Visualisasi:**\n\nVisualisasi *boxplot* dan tabel mendemonstrasikan hierarki kepadatan informasi (*information density*) secara komprehensif pada kolom deskripsi yang telah dibersihkan. Kategori 'Information Technology' secara konsisten menduduki peringkat teratas, baik pada sebaran nilai tengah (median 202 kata) maupun batas pencilan ekstrem (outliers).")
-        st.success("**Conclusion:**\n\nAnalisis kepadatan teks menunjukkan variansi ekstrem antar-industri. Untuk menjaga efisiensi RAM dan performa server aplikasi saat sistem memproses ribuan data, parameter batas token teks (*max_features*) pada model TF-IDF harus dikalibrasi di kisaran angka median tertinggi (yakni sektor IT: 202 kata). Penetapan parameter berbasis bukti kuantitatif ini mencegah risiko komputasi *overfitting*.")
+        st.info("**Insight Visualisasi:**\n\nVisualisasi *boxplot* dan tabel mendemonstrasikan hierarki kepadatan informasi (*information density*) secara komprehensif pada kolom deskripsi yang telah dibersihkan. Kategori 'Information Technology' secara konsisten menduduki peringkat teratas, baik pada sebaran nilai tengah (median 201 kata) maupun batas pencilan ekstrem (outliers dengan pencilan tertinggi mencapai 1.577 kata pada sektor Sales & Marketing).")
+        st.success("**Conclusion:**\n\nAnalisis kepadatan teks menunjukkan variansi ekstrem antar-industri. Untuk menjaga efisiensi RAM dan performa server aplikasi saat sistem memproses ribuan data, parameter batas token teks (*max_features*) pada model TF-IDF harus dikalibrasi di kisaran angka median tertinggi (yakni sektor IT: 201 kata). Penetapan parameter berbasis bukti kuantitatif ini mencegah risiko komputasi *overfitting*.")
