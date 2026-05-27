@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.subplots as plt
+import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Set up Streamlit page configuration
@@ -81,7 +81,6 @@ else:
                         ha='center', va='center', weight='bold', color='white', fontsize=9)
         st.pyplot(fig1)
         
-        # PERBAIKAN NARASI: Penyesuaian dengan teknik Oversampling di Notebook
         st.markdown("### 💡 Insight & Kesimpulan")
         st.info("**Insight Visualisasi:**\n\nGrafik menunjukkan 5 pilar industri dengan proporsi yang rata sempurna (masing-masing 10.000 data atau 20.00%). Kondisi ekuilibrium ini merupakan hasil dari penerapan teknik **Oversampling** pada tahap *Data Preparation* untuk mengatasi ketimpangan jumlah data mentah (*Imbalanced Data*).")
         st.success("**Conclusion:**\n\nKeberhasilan teknik *Oversampling* dalam menyeimbangkan distribusi kelas memastikan dataset terbebas mutlak dari risiko *Majority Class Bias*. Arsitektur Machine Learning kini dapat mengekstraksi fitur dan memberikan rekomendasi karir secara adil, objektif, dan tanpa diskriminasi terhadap profesi minoritas.")
@@ -100,8 +99,8 @@ else:
         st.pyplot(fig2)
         
         st.markdown("### 💡 Insight & Kesimpulan")
-        st.info("**Insight Visualisasi:**\n\nVisualisasi grafik batang horizontal memperlihatkan secara jelas dominasi pasar tenaga kerja oleh rumpun komersial dan lini depan. Posisi 'sales executive' mendominasi grafik dengan volume rekrutmen tertinggi (777 lowongan).")
-        st.success("**Conclusion:**\n\nTingginya volume rekrutmen pada posisi lini depan komersial (dipimpin oleh Sales Executive dengan 777 lowongan) dan layanan kesehatan merepresentasikan fokus serapan pasar tenaga kerja saat ini. Pengembangan UI/UX pada dashboard aplikasi perlu memprioritaskan penyajian 'High Demand Jobs' pada halaman utama untuk mengarahkan pengguna ke sektor dengan probabilitas rekrutmen tertinggi.")
+        st.info("**Insight Visualisasi:**\n\nVisualisasi grafik batang horizontal memperlihatkan secara jelas dominasi pasar tenaga kerja oleh rumpun komersial dan lini depan. Posisi 'sales executive' mendominasi grafik dengan volume rekrutmen tertinggi (775 lowongan).")
+        st.success("**Conclusion:**\n\nTingginya volume rekrutmen pada posisi lini depan komersial (dipimpin oleh Sales Executive dengan 775 lowongan) dan layanan kesehatan merepresentasikan fokus serapan pasar tenaga kerja saat ini. Pengembangan UI/UX pada dashboard aplikasi perlu memprioritaskan penyajian 'High Demand Jobs' pada halaman utama untuk mengarahkan pengguna ke sektor dengan probabilitas rekrutmen tertinggi.")
 
     # PERTANYAAN 3 (Heatmap & Anotasi Bobot Keterampilan)
     elif selected_q.startswith("Pertanyaan 3"):
@@ -117,7 +116,6 @@ else:
         plt.title('Matriks Pemisahan Semantik Kerapatan Unigram Utama per Industri', fontsize=11, weight='bold')
         st.pyplot(fig3)
         
-        # PERBAIKAN NARASI: Penyesuaian dengan teknik Lemmatization
         st.markdown("### 💡 Insight & Kesimpulan")
         st.info("**Insight Visualisasi:**\n\nSetelah teks melalui pembersihan tingkat lanjut (*Lemmatization* dan Regex), heatmap membuktikan keberadaan \"DNA Kosakata\" yang sangat spesifik. Kata universal terpetakan beririsan, sementara istilah sektoral (seperti 'medical' di Healthcare dan 'engineering' di Engineering) terkunci pekat. Pembersihan *noise* ini menghasilkan pemisah kosakata yang tegas dan murni.")
         st.success("**Conclusion:**\n\nKeberadaan 'DNA Kosakata' yang telah terbebas dari residu kata hubung ini membuktikan urgensi penyaringan semantik. Tim AI Engineer siap mengeksekusi algoritma TF-IDF untuk mengubah dataset bersih ini menjadi matriks vektor, memastikan akurasi pencocokan resume menggunakan Cosine Similarity berjalan presisi dan efisien.")
@@ -139,7 +137,7 @@ else:
         st.info("**Insight Visualisasi:**\n\nGrafik proporsi pekerjaan secara gamblang memvalidasi masifnya penetrasi kompetensi digital di sektor non-IT. Terlihat jelas bahwa baris Engineering (67.10%) and Business & Admin (65.97%) mendominasi kebutuhan literasi teknologi, membuktikan bahwa algoritma AI kelak sangat relevan untuk menyokong rekomendasi peran hybrid kepada pelamar non-teknis.")
         st.success("**Conclusion:**\n\nDominasi kebutuhan literasi digital pada sektor non-IT memvalidasi tren ekspansi pekerjaan hybrid. Algoritma rekomendasi harus dikonfigurasi agar secara proaktif memfasilitasi Career Pivot, mengarahkan kandidat berlatar belakang non-teknis yang memiliki kompetensi digital menuju peluang lintas industri tersebut.")
 
-    # PERTANYAAN 5 (Kombinasi Box Plot, Bar Chart Interaktif, dan Tabel Angka Deskriptif)
+    # HALAMAN PERTANYAAN 5 (Kombinasi Box Plot, Bar Chart Interaktif, dan Tabel Angka Deskriptif)
     elif selected_q.startswith("Pertanyaan 5"):
         st.markdown("### 📊 Visualisasi Grafik (Box Plot)")
         
