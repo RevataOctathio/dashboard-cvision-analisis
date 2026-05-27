@@ -142,7 +142,7 @@ else:
         st.markdown("### 📊 Visualisasi Grafik (Box Plot)")
         
         if df_main is None:
-            st.error("⚠️ Dataset utama tidak ditemukan. Pastikan file df_final.csv berada di direktori yang benar.")
+            st.error("Dataset utama tidak ditemukan. Pastikan file df_final.csv berada di direktori yang benar.")
         else:
             fig_box, ax_box = plt.subplots(figsize=(12, 6))
             
