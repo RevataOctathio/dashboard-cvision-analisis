@@ -120,21 +120,25 @@ else:
         st.info("**Insight Visualisasi:**\n\nHeatmap membuktikan secara empiris keberadaan \"DNA Kosakata\" (Bag-of-Words) yang spesifik dan mandiri. Kata universal seperti 'experience' atau 'job' terpetakan beririsan di semua kategori dengan bobot serupa. Namun, istilah sektoral seperti 'medical' terkunci pekat di Healthcare dan 'engineering' di Engineering. Pemisah kosakata yang tegas ini memvalidasi bahwa perhitungan skor Cosine Similarity model TF-IDF nantinya akan menghasilkan prediksi rekomendasi transisi karir lintas industri (career pivot) yang sangat presisi.")
         st.success("**Conclusion:**\n\nKeberadaan 'DNA Kosakata' yang telah terbebas dari residu kata hubung ini membuktikan urgensi penyaringan semantik. Tim AI Engineer siap mengeksekusi algoritma TF-IDF untuk mengubah dataset bersih ini menjadi matriks vektor, memastikan akurasi pencocokan resume menggunakan Cosine Similarity berjalan presisi dan efisien.")
 
-    # PERTANYAAN 4 (Bar Chart Vertikal)
+# PERTANYAAN 4 (Bar Chart Vertikal)
     elif selected_q.startswith("Pertanyaan 4"):
         st.markdown("### 📊 Visualisasi Grafik")
+        
+        q4_data_sorted = q4_data.sort_values(by='Persentase dari Total Kategori (%)', ascending=False)
         fig4, ax4 = plt.subplots(figsize=(10, 4))
         
-        sns.barplot(x='Kategori Non-IT', y='Persentase dari Total Kategori (%)', data=q4_data, hue='Kategori Non-IT', palette='muted', legend=False, ax=ax4)
+        sns.barplot(x='Kategori Non-IT', y='Persentase dari Total Kategori (%)', 
+                    data=q4_data_sorted, hue='Kategori Non-IT', palette='muted', legend=False, ax=ax4)
         
         plt.title('Proporsi Lowongan Kerja Non-IT yang Menuntut Kompetensi Digital', fontsize=11, weight='bold')
+        
         for p in ax4.patches:
             ax4.annotate(f"{p.get_height():.2f}%", (p.get_x() + p.get_width() / 2., p.get_height() / 2),
-                        ha='center', va='center', weight='bold', color='white', fontsize=10)
+                ha='center', va='center', weight='bold', color='white', fontsize=10)
         st.pyplot(fig4)
         
         st.markdown("### 💡 Insight & Kesimpulan")
-        st.info("**Insight Visualisasi:**\n\nTabel dan grafik hibridisasi ini memberikan bukti kuat mengenai fenomena transformasi digital di luar sektor IT. Kategori Engineering memimpin dengan (67.25%) lowongan yang menuntut keahlian digital, disusul Business & Admin (66.06%) dan Sales & Marketing (61.82%). Hal ini membuktikan membuktikan bahwa algoritma AI kelak sangat relevan untuk menyokong rekomendasi peran hybrid kepada pelamar non-teknis.")
+        st.info("**Insight Visualisasi:**\n\nGrafik hibridisasi ini memberikan bukti kuat mengenai fenomena transformasi digital di luar sektor IT. Kategori Engineering memimpin dengan 67.25% lowongan yang menuntut keahlian digital, disusul Business & Admin (66.06%) dan Sales & Marketing (61.82%). Hal ini membuktikan bahwa algoritma AI kelak sangat relevan untuk menyokong rekomendasi peran hybrid kepada pelamar non-teknis.")
         st.success("**Conclusion:**\n\nDominasi kebutuhan literasi digital pada sektor non-IT memvalidasi tren ekspansi pekerjaan hybrid. Algoritma rekomendasi harus dikonfigurasi agar secara proaktif memfasilitasi Career Pivot, mengarahkan kandidat berlatar belakang non-teknis yang memiliki kompetensi digital menuju peluang lintas industri tersebut.")
 
     # HALAMAN PERTANYAAN 5 (Kombinasi Box Plot, Bar Chart Interaktif, dan Tabel Angka Deskriptif)
