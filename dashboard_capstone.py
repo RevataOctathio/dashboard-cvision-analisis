@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+
 # Set up Streamlit page configuration
 st.set_page_config(
     page_title="CVision Analytics Dashboard", 
@@ -15,15 +16,13 @@ sns.set_theme(style="whitegrid")
 @st.cache_data
 def load_dashboard_data():
     try:
-        # Memuat dataset final yang sudah melalui tahap Oversampling dan Lemmatization
         df_main = pd.read_csv('df_final.csv')
         q1 = pd.read_csv('streamlit_data/q1_kategori_counts.csv')
         q2 = pd.read_csv('streamlit_data/q2_top_10_jobs.csv')
-        q3 = pd.read_csv('streamlit_data/q3_top_skills_matrix.csv')
+        q3 = pd.read_csv('streamlit_data/q3_top_skills_matrix.csv', index_col=0)
         q4 = pd.read_csv('streamlit_data/q4_hybrid_trend.csv')
         q5 = pd.read_csv('streamlit_data/q5_word_count_stats.csv')
         
-        # Fallback perhitungan word_count jika belum tersedia di CSV
         if 'word_count' not in df_main.columns:
             df_main['word_count'] = df_main['desc_clean'].astype(str).apply(lambda x: len(x.split()))
             
@@ -93,7 +92,7 @@ else:
         st.markdown("### 📊 Visualisasi Grafik")
         fig2, ax2 = plt.subplots(figsize=(11, 5))
         
-        sns.barplot(x='Jumlah Lowongan', y='Posisi Pekerjaan (Job Title)', data=filtered_q2, hue='Posisi Pekerjaan (Job Title)', palette='muted', legend=False, ax=ax2)
+        sns.barplot(x='Jumlah Lowongan', y='Posisi Pekerjaan (Job Title)', data=filtered_q2, hue='Posisi Pekerjaan (Job Title)', palette='Blues_r', legend=False, ax=ax2)
         
         plt.title(f'Peringkat {top_n} Besar Jabatan Lowongan Kerja Terpopuler', fontsize=11, weight='bold')
         st.pyplot(fig2)
@@ -104,22 +103,60 @@ else:
 
     # PERTANYAAN 3 (Heatmap & Anotasi Bobot Keterampilan)
     elif selected_q.startswith("Pertanyaan 3"):
-        q3_heatmap = q3_data.set_index('Rank')
-        
         st.markdown("### 📊 Visualisasi Grafik")
-        fig3, ax3 = plt.subplots(figsize=(10, 5))
-        mock_weights = pd.DataFrame(index=q3_heatmap.index, columns=q3_heatmap.columns)
-        for col in q3_heatmap.columns:
-            mock_weights[col] = range(10, 0, -1)
-            
-        sns.heatmap(mock_weights, annot=q3_heatmap, fmt="", cmap='YlGnBu', cbar=False, ax=ax3, annot_kws={"size": 9})
-        plt.title('Matriks Pemisahan Semantik Kerapatan Unigram Utama per Industri', fontsize=11, weight='bold')
+
+        kategori_urutan = [
+            'Business & Admin',
+            'Engineering',
+            'Healthcare',
+            'Information Technology',
+            'Sales & Marketing',
+        ]
+        urutan_baris = [
+            'accounting', 'financial', 'company', 'support', 'project',
+            'service', 'development', 'quality', 'experience', 'sales',
+            'work', 'team', 'marketing', 'customer', 'job',
+            'ensure', 'management', 'business', 'engineering', 'data',
+            'medical', 'skills', 'report'
+        ]
+        df_skills_comp = q3_data[kategori_urutan]
+
+        semua_kata = []
+        for col in df_skills_comp.columns:
+            semua_kata.extend(df_skills_comp[col].dropna().tolist())
+        kata_kunci_unik = list(dict.fromkeys(semua_kata))
+
+        heatmap_data = pd.DataFrame(0, index=kata_kunci_unik, columns=df_skills_comp.columns)
+        for col in df_skills_comp.columns:
+            for rank, word in enumerate(df_skills_comp[col].dropna()):
+                heatmap_data.loc[word, col] = 11 - (rank + 1)
+        urutan_baris_final = [k for k in urutan_baris if k in heatmap_data.index]
+        heatmap_data = heatmap_data.reindex(urutan_baris_final)
+        fig3, ax3 = plt.subplots(figsize=(12, 8))
+
+        sns.heatmap(
+            heatmap_data,
+            annot=True,
+            fmt='g',
+            cmap='YlGnBu',
+            cbar=True,
+            linewidths=.5,
+            ax=ax3,
+        )
+
+        plt.title('Heatmap Karakteristik Kerapatan & Irisan Kata Kunci Utama per Kategori Industri',
+            fontsize=14, pad=15, weight='bold')
+        plt.xlabel('Kategori Industri', fontsize=12)
+        plt.ylabel('Kata Kunci Utama (Unigram)', fontsize=12)
+        plt.tight_layout()
+
         st.pyplot(fig3)
-        
+        plt.close(fig3)
+
         st.markdown("### 💡 Insight & Kesimpulan")
         st.info("**Insight Visualisasi:**\n\nHeatmap membuktikan secara empiris keberadaan \"DNA Kosakata\" (Bag-of-Words) yang spesifik dan mandiri. Kata universal seperti 'experience' atau 'job' terpetakan beririsan di semua kategori dengan bobot serupa. Namun, istilah sektoral seperti 'medical' terkunci pekat di Healthcare dan 'engineering' di Engineering. Pemisah kosakata yang tegas ini memvalidasi bahwa perhitungan skor Cosine Similarity model TF-IDF nantinya akan menghasilkan prediksi rekomendasi transisi karir lintas industri (career pivot) yang sangat presisi.")
         st.success("**Conclusion:**\n\nKeberadaan 'DNA Kosakata' yang telah terbebas dari residu kata hubung ini membuktikan urgensi penyaringan semantik. Tim AI Engineer siap mengeksekusi algoritma TF-IDF untuk mengubah dataset bersih ini menjadi matriks vektor, memastikan akurasi pencocokan resume menggunakan Cosine Similarity berjalan presisi dan efisien.")
-
+    
     # PERTANYAAN 4 (Bar Chart Vertikal)
     elif selected_q.startswith("Pertanyaan 4"):
         st.markdown("### 📊 Visualisasi Grafik")
